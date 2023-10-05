@@ -1,0 +1,21 @@
+{
+  "name": "santou-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "generate-password": "^1.7.0",
+    "mongoose": "^7.0.3",
+    "morgan": "~1.9.1",
+    "short-unique-id": "^5.0.3"
+  }
+}
