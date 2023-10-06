@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Order = require("../model/order.model");
+const middleware = require("../utils/middleware");
 
 // Create Order
-router.post("/", (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response) => {
   try {
     const body = request.body;
     const newOrder = new Order({
@@ -22,7 +23,7 @@ router.post("/", (request, response) => {
 });
 
 // Get all Orders
-router.get("/", (request, response) => {
+router.get("/", middleware.isAuthenticated, (request, response) => {
   try {
     Order.find()
       .populate("products")
@@ -36,19 +37,21 @@ router.get("/", (request, response) => {
 });
 
 // Get Order by Id
-router.get("/:id", (request, response) => {
+router.get("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
-    Order.findById(id).then((order) => {
-      return response.status(200).json({ success: true, order: order });
-    });
+    Order.findById(id)
+      .populate("user")
+      .then((order) => {
+        return response.status(200).json({ success: true, order: order });
+      });
   } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }
 });
 
 // Update Order
-router.put("/:id", (request, response) => {
+router.put("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     const body = request.body;
@@ -71,7 +74,7 @@ router.put("/:id", (request, response) => {
 });
 
 // Delete Order
-router.delete("/:id", (request, response) => {
+router.delete("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     Order.findByIdAndDelete(id).then((order) => {

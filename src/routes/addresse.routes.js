@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Address = require("../model/address.model");
+const middleware = require("../utils/middleware");
 
 // Create Address
-router.post("/", (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response) => {
   try {
     const body = request.body;
     const newAddress = new Address({

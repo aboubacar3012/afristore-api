@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../model/product.model");
+const middleware = require("../utils/middleware");
 
 // Create Product
-router.post("/", (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response) => {
   // category is an array of category ids
   try {
     const body = request.body;
@@ -52,7 +53,7 @@ router.get("/:id", (request, response) => {
 });
 
 // Update Product
-router.put("/:id", (request, response) => {
+router.put("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     const body = request.body;
@@ -75,7 +76,7 @@ router.put("/:id", (request, response) => {
 });
 
 // Delete Product
-router.delete("/:id", (request, response) => {
+router.delete("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     Product.findByIdAndDelete(id).then((product) => {

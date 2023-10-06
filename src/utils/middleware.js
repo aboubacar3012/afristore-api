@@ -1,4 +1,5 @@
 const logger = require("./logger");
+const session = require("express-session");
 
 const requestLogger = (request, response, next) => {
   logger.info("Method:", request.method);
@@ -6,6 +7,19 @@ const requestLogger = (request, response, next) => {
   logger.info("Body:  ", request.body);
   logger.info("---");
   next();
+};
+
+// middleware to test if authenticated
+const isAuthenticated = (req, res, next) => {
+  console.log("req.session.user", req.session.user);
+  if (req.session.user) next();
+  else
+    return res.status(401).json({
+      success: false,
+      status: 401,
+      message: "Unauthorized",
+      error: "Veillez vous authentifier pour continuer !",
+    });
 };
 
 const unknownEndpoint = (request, response) => {
@@ -28,4 +42,5 @@ module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
+  isAuthenticated,
 };

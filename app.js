@@ -6,6 +6,8 @@ const middleware = require("./src/utils/middleware");
 const cors = require("cors");
 require("./src/model/dbConnection");
 require("dotenv").config();
+const session = require("express-session");
+const { v4: uuidv4 } = require("uuid");
 
 const usersRouter = require("./src/routes/user.routes");
 const authRouter = require("./src/routes/auth.routes");
@@ -25,6 +27,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(middleware.errorHandler);
+app.use(middleware.requestLogger);
+
+app.use(
+  session({
+    genid: (req) => {
+      return uuidv4(); // use UUIDs for session IDs
+    },
+    name: "afristores.sid",
+    secret: "my_secret_key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false, //process.env.NODE_ENV === "production" ? true : false, // Si true, le cookie ne sera envoyé que sur HTTPS
+      maxAge: 24 * 60 * 60 * 1000, // Durée de vie du cookie en millisecondes (ici, 24 heures)
+      httpOnly: true, //process.env.NODE_ENV === "production" ? true : false, // Le cookie ne peut pas être accédé via JavaScript
+      sameSite: "lax", //process.env.NODE_ENV === "production" ? "strict" : "lax", // 'Strict', 'Lax', 'None', ou true (équivalent à 'Strict')
+    },
+  })
+);
+
+// app.use(middleware.isAuthenticated);
 
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);

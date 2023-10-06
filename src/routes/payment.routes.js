@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Payment = require("../model/payment.model");
+const middleware = require("../utils/middleware");
 
 // Create Payment
-router.post("/", (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response) => {
   try {
     const body = request.body;
     const newPayment = new Payment({
@@ -22,7 +23,7 @@ router.post("/", (request, response) => {
 });
 
 // Get all Payments
-router.get("/", (request, response) => {
+router.get("/", middleware.isAuthenticated, (request, response) => {
   try {
     Payment.find().then((payments) => {
       return response.status(200).json({ success: true, payments: payments });
@@ -33,7 +34,7 @@ router.get("/", (request, response) => {
 });
 
 // Get Payment by Id
-router.get("/:id", (request, response) => {
+router.get("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     Payment.findById(id).then((payment) => {
@@ -45,7 +46,7 @@ router.get("/:id", (request, response) => {
 });
 
 // Update Payment
-router.put("/:id", (request, response) => {
+router.put("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     const body = request.body;
@@ -68,7 +69,7 @@ router.put("/:id", (request, response) => {
 });
 
 // Delete Payment
-router.delete("/:id", (request, response) => {
+router.delete("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     Payment.findByIdAndDelete(id).then((payment) => {

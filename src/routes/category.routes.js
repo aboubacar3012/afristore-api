@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Category = require("../model/category.model");
+const middleware = require("../utils/middleware");
 
 // Create Category
-router.post("/", (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response) => {
   try {
     const body = request.body;
     const newCategory = new Category({
@@ -47,7 +48,7 @@ router.get("/:id", (request, response) => {
 });
 
 // Update Category
-router.put("/:id", (request, response) => {
+router.put("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     const body = request.body;
@@ -70,7 +71,7 @@ router.put("/:id", (request, response) => {
 });
 
 // Delete Category
-router.delete("/:id", (request, response) => {
+router.delete("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     Category.findByIdAndDelete(id).then((category) => {

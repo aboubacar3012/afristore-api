@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("../model/user.model");
 const mongoose = require("mongoose");
+const middleware = require("../utils/middleware");
 
 // get user by ID
-router.get("/:id", (request, response) => {
+router.get("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const userId = request.params.id;
     // verifier si l'id est valid
@@ -26,7 +27,7 @@ router.get("/:id", (request, response) => {
 });
 
 // get all users
-router.get("/", (request, response) => {
+router.get("/", middleware.isAuthenticated, (request, response) => {
   try {
     User.find().then((users) => {
       if (users.length > 0)
@@ -41,7 +42,9 @@ router.get("/", (request, response) => {
   }
 });
 
-router.delete("/:id", (request, response) => {
+// create users
+
+router.delete("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const userId = request.params.id;
     // verifier si l'id est valid
@@ -66,7 +69,7 @@ router.delete("/:id", (request, response) => {
 });
 
 // permet de mettre ajour un utilisateur par son id
-router.put("/:id", (request, response) => {
+router.put("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const userId = request.params.id;
     // verifier si l'id est valid

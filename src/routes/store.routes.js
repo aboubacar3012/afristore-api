@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Store = require("../model/store.model");
-
+const middleware = require("../utils/middleware");
 // Create Store
-router.post("/", (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response) => {
   try {
     const body = request.body;
     const newStore = new Store({
@@ -45,7 +45,7 @@ router.get("/:id", (request, response) => {
 });
 
 // Update Store by Id
-router.put("/:id", (request, response) => {
+router.put("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     const body = request.body;
@@ -68,7 +68,7 @@ router.put("/:id", (request, response) => {
 });
 
 // Delete Store by Id
-router.delete("/:id", (request, response) => {
+router.delete("/:id", middleware.isAuthenticated, (request, response) => {
   try {
     const id = request.params.id;
     Store.findByIdAndDelete(id).then((store) => {

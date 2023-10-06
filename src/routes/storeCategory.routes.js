@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-
 const StoreCategory = require("../model/storeCategory.model");
-
+const middleware = require("../utils/middleware");
 // Create StoreCategory
-router.post("/", (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response) => {
   try {
     const body = request.body;
     const newStoreCategory = new StoreCategory({
@@ -50,7 +49,7 @@ router.get("/:id", (request, response) => {
 });
 
 // Update StoreCategory
-router.put("/:id", (request, response) => {
+router.put("/:id", middleware.isAuthenticated, (request, response) => {
   // TODO: Update StoreCategory by Id
   try {
     const id = request.params.id;
@@ -74,7 +73,7 @@ router.put("/:id", (request, response) => {
 });
 
 // Delete StoreCategory
-router.delete("/:id", (request, response) => {
+router.delete("/:id", middleware.isAuthenticated, (request, response) => {
   // TODO: Delete StoreCategory by Id
   try {
     const id = request.params.id;
