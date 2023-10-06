@@ -1,5 +1,7 @@
 const logger = require("./logger");
 const session = require("express-session");
+const jwt = require("jsonwebtoken");
+const User = require("../model/user.model");
 
 const requestLogger = (request, response, next) => {
   logger.info("Method:", request.method);
@@ -10,16 +12,35 @@ const requestLogger = (request, response, next) => {
 };
 
 // middleware to test if authenticated
-const isAuthenticated = (req, res, next) => {
-  console.log("req.session.user", req.session.user);
-  if (req.session.user) next();
-  else
-    return res.status(401).json({
-      success: false,
-      status: 401,
-      message: "Unauthorized",
-      error: "Veillez vous authentifier pour continuer !",
-    });
+const isAuthenticated = async (req, res, next) => {
+  try {
+    // get token in headers
+    const token =
+      req.headers.authorization && req.headers.authorization.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({
+        status: 401,
+        error: "Unauthorized, please login",
+      });
+    }
+
+    // Vérifier le token de manière asynchrone
+    jwt.verify(
+      token,
+      process.env.SECRET_KEY || "afristore_key",
+      (err, decoded) => {
+        if (err) {
+          return res.status(401).json({
+            status: 401,
+            error: "Unauthorized, please login",
+          });
+        }
+        next();
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
 };
 
 const unknownEndpoint = (request, response) => {
@@ -33,9 +54,11 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).send({ error: "malformatted id" });
   } else if (error.name === "ValidationError") {
     return response.status(400).json({ error: error.message });
+  } else {
+    return response
+      .status(400)
+      .json({ error: error.message, name: error.name });
   }
-
-  next(error);
 };
 
 module.exports = {
