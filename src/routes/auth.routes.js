@@ -77,6 +77,8 @@ router.post("/signin", (request, response, next) => {
           // store user information in session, typically a user id
           // @ts-ignore
           request.session.user = user;
+          // @ts-ignore
+          request.session.authorized = true;
 
           // save the session before redirection to ensure page
           // load does not happen before session is saved
