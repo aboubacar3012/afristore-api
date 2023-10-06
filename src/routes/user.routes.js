@@ -14,13 +14,16 @@ router.get("/:id", middleware.isAuthenticated, (request, response) => {
         .status(200)
         .json({ success: false, message: "id is not valid" });
 
-    User.findById(userId).then((users) => {
-      if (users) return response.status(200).json(users);
-      else
-        return response
-          .status(200)
-          .json({ success: false, message: "user not found" });
-    });
+    User.findById(userId)
+      .populate("address")
+      .populate("store")
+      .then((users) => {
+        if (users) return response.status(200).json(users);
+        else
+          return response
+            .status(200)
+            .json({ success: false, message: "user not found" });
+      });
   } catch (e) {
     return response.status(200).json({ success: false, error: e.message });
   }

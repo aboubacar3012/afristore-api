@@ -17,6 +17,7 @@ const categoryRouter = require("./src/routes/category.routes");
 const paymentRouter = require("./src/routes/payment.routes");
 const storeRouter = require("./src/routes/store.routes");
 const storeCategoryRouter = require("./src/routes/storeCategory.routes");
+const cartRouter = require("./src/routes/cart.routes");
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/payments", paymentRouter);
 app.use("/api/stores", storeRouter);
 app.use("/api/storeCategories", storeCategoryRouter);
+app.use("/api/cart", cartRouter);
 
 app.use(middleware.unknownEndpoint);
 module.exports = app;

@@ -25,7 +25,10 @@ router.post("/", middleware.isAuthenticated, (request, response) => {
 // Get all Orders
 router.get("/", middleware.isAuthenticated, (request, response) => {
   try {
-    Order.find()
+    // paymentStatus = PAID
+    Order.find({
+      paymentStatus: "PAID",
+    })
       .populate("products")
       .populate("user")
       .then((orders) => {
