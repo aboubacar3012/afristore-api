@@ -30,6 +30,21 @@ const productSchema = new mongoose.Schema({
     required: false,
     default: 0,
   },
+  size: {
+    type: String,
+    enum: ["S", "M", "L", "XL", "XXL", "XXXL"],
+    required: false,
+  },
+  color: {
+    type: String,
+    enum: ["BLACK", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"],
+    required: false,
+  },
+  sex: {
+    type: String,
+    enum: ["MAN", "WOMAN", "UNISEX"],
+    required: false,
+  },
   discount: {
     type: Number,
     required: true,

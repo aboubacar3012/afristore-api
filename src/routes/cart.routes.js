@@ -28,7 +28,7 @@ router.post("/validateCart", async (req, res, next) => {
 
   const newOrder = new Order({
     user: userId,
-    products: products.map((product) => product.id),
+    products: products,
     orderDate: new Date().toISOString(),
     paymentStatus: "PENDING",
     orderStatus: "PENDING",

@@ -4,6 +4,7 @@ mongoose
   // @ts-ignore
   .connect(config.MONGODB_URI)
   .then(() => {
+    console.log(process.env.NODE_ENV)
     console.log("✅ Afristore Database connected successfully ✨✨");
   })
   .catch((error) => {

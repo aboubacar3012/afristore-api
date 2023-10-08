@@ -5,7 +5,6 @@ const logger = require("morgan");
 const middleware = require("./src/utils/middleware");
 const cors = require("cors");
 require("./src/model/dbConnection");
-require("dotenv").config();
 const session = require("express-session");
 const { v4: uuidv4 } = require("uuid");
 
