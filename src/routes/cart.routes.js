@@ -19,6 +19,9 @@ router.post("/validateCart", async (req, res, next) => {
     }
     productTotalAmount += product.price * products[i].quantity;
   }
+  productTotalAmount = parseFloat(productTotalAmount.toFixed(2));
+
+  console.log({ productTotalAmount, deliveryCharge, totalAmount })
   if (productTotalAmount + deliveryCharge !== totalAmount) {
     return res.status(400).json({
       success: false,
