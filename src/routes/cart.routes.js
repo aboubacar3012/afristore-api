@@ -3,9 +3,10 @@ const router = express.Router();
 const User = require("../model/user.model");
 const Order = require("../model/order.model");
 const Product = require("../model/product.model");
+const middleware = require("../utils/middleware");
 
 // validate cart
-router.post("/validateCart", async (req, res, next) => {
+router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) => {
   const { products, userId, amount, deliveryCharge, totalAmount } = req.body;
   const user = await User.findById(userId).populate("address");
   if (!user) {

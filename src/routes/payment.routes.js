@@ -3,6 +3,43 @@ const router = express.Router();
 const Payment = require("../model/payment.model");
 const middleware = require("../utils/middleware");
 
+// @ts-ignore
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const calculateCartAmount = (cart) => {
+  let amount = 0;
+  cart.products.map((product) => {
+    product.quantity && (amount += product.price * product.quantity);
+  });
+  return amount * 100;
+};
+
+// Handler pour la route /api/payment-intent
+router.post('/create-payment-intent', async (req, res) => {
+  const { cart } = req.body;
+
+  try {
+    const amount = calculateCartAmount(cart);
+
+    // @ts-ignore
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: 'eur',
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+
+    res.status(200).json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+// note used
+
 // Create Payment
 router.post("/", middleware.isAuthenticated, (request, response) => {
   try {

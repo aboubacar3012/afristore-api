@@ -20,7 +20,7 @@ const isAuthenticated = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         status: 401,
-        error: "Unauthorized, please login",
+        error: "Vous n'êtes pas autorisé à accéder à cette ressource, veillez vous connecter",
       });
     }
 
@@ -32,7 +32,7 @@ const isAuthenticated = async (req, res, next) => {
         if (err) {
           return res.status(401).json({
             status: 401,
-            error: "Unauthorized, please login",
+            error: "Vous n'êtes pas autorisé à accéder à cette ressource, veillez vous connecter",
           });
         }
         next();
