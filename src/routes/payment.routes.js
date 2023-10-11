@@ -11,7 +11,8 @@ const calculateCartAmount = (cart) => {
   cart.products.map((product) => {
     product.quantity && (amount += product.price * product.quantity);
   });
-  return amount * 100;
+  // return amount;
+  return 100;
 };
 
 // Handler pour la route /api/payment-intent
