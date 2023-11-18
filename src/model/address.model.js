@@ -26,6 +26,14 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  latitude: {
+    type: Number,
+    required: false,
+  },
+  longitude: {
+    type: Number,
+    required: false,
+  },
   createdAt: {
     type: String,
     default: new Date().toISOString(),

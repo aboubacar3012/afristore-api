@@ -10,6 +10,14 @@ const storeSchema = new mongoose.Schema({
     ref: "addresses",
     required: true,
   },
+  latitude: {
+    type: Number,
+    required: true,
+  },
+  longitude: {
+    type: Number,
+    required: true,
+  },
   phoneNumbers: [
     {
       type: String,

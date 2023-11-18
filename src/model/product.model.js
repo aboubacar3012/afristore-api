@@ -1,9 +1,29 @@
 const mongoose = require("mongoose");
 
+/*
+  Code produit
+  Code: 0001
+    Taille: S, M, L, XL, XXL, XXXL
+    Couleur: BLACK, WHITE, RED, BLUE, GREEN, YELLOW
+    Sexe: HOMME, FEMME, UNISEX
+  Code: 0002
+    Longueur: 1m, 2m, 3m, 4m, 5m, 6m
+    Largeur: 1m, 2m, 3m, 4m, 5m, 6m
+    Couleur: BLACK, WHITE, RED, BLUE, GREEN, YELLOW
+  code: 0003
+    Taille : S, M, L, XL, XXL, XXXL
+  
+
+*/
+
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+  },
+  code: {
+    type: String,
+    required: false,
   },
   category: [
     {
@@ -15,7 +35,7 @@ const productSchema = new mongoose.Schema({
   merchant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
-    required: true,
+    required: false,
   },
   description: {
     type: String,

@@ -13,34 +13,35 @@ const requestLogger = (request, response, next) => {
 
 // middleware to test if authenticated
 const isAuthenticated = async (req, res, next) => {
-  try {
-    // get token in headers
-    const token =
-      req.headers.authorization && req.headers.authorization.split(" ")[1];
-    if (!token) {
-      return res.status(401).json({
-        status: 401,
-        error: "Vous n'êtes pas autorisé à accéder à cette ressource, veillez vous connecter",
-      });
-    }
+  // try {
+  //   // get token in headers
+  //   const token =
+  //     req.headers.authorization && req.headers.authorization.split(" ")[1];
+  //   if (!token) {
+  //     return res.status(401).json({
+  //       status: 401,
+  //       error: "Vous n'êtes pas autorisé à accéder à cette ressource, veillez vous connecter",
+  //     });
+  //   }
 
-    // Vérifier le token de manière asynchrone
-    jwt.verify(
-      token,
-      process.env.SECRET_KEY || "afristore_key",
-      (err, decoded) => {
-        if (err) {
-          return res.status(401).json({
-            status: 401,
-            error: "Vous n'êtes pas autorisé à accéder à cette ressource, veillez vous connecter",
-          });
-        }
-        next();
-      }
-    );
-  } catch (error) {
-    next(error);
-  }
+  //   // Vérifier le token de manière asynchrone
+  //   jwt.verify(
+  //     token,
+  //     process.env.SECRET_KEY || "afristore_key",
+  //     (err, decoded) => {
+  //       if (err) {
+  //         return res.status(401).json({
+  //           status: 401,
+  //           error: "Vous n'êtes pas autorisé à accéder à cette ressource, veillez vous connecter",
+  //         });
+  //       }
+  //       next();
+  //     }
+  //   );
+  // } catch (error) {
+  //   next(error);
+  // }
+  next();
 };
 
 const unknownEndpoint = (request, response) => {

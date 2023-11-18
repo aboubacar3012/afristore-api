@@ -5,7 +5,18 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: String,
+  icon: {
+    type: String,
+    required: false,
+  },
+  color: {
+    type: String,
+    required: false,
+  },
+  bgColor: {
+    type: String,
+    required: false,
+  },
   createdAt: {
     type: String,
     default: new Date().toISOString(),

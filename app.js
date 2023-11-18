@@ -27,8 +27,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(middleware.errorHandler);
-app.use(middleware.requestLogger);
+// app.use(middleware.errorHandler);
+// app.use(middleware.requestLogger);
 
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
