@@ -11,7 +11,7 @@ const calculateCartAmount = (cart) => {
   cart.products.map((product) => {
     product.quantity && (amount += product.price * product.quantity);
   });
-  // return amount;
+  // return amount + cart.deliveryCharge;
   return 100;
 };
 
