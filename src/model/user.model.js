@@ -55,11 +55,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  address: {
+  addresses: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "addresses",
     required: true,
-  },
+  }],
   createdAt: {
     type: String,
     default: new Date().toISOString(),

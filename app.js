@@ -17,6 +17,7 @@ const paymentRouter = require("./src/routes/payment.routes");
 const storeRouter = require("./src/routes/store.routes");
 const storeCategoryRouter = require("./src/routes/storeCategory.routes");
 const cartRouter = require("./src/routes/cart.routes");
+const addressRouter = require("./src/routes/address.routes");
 
 const app = express();
 
@@ -27,8 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(middleware.errorHandler);
-// app.use(middleware.requestLogger);
+app.use(middleware.errorHandler);
+app.use(middleware.requestLogger);
 
 app.use("/api/users", usersRouter);
 app.use("/api/auth", authRouter);
@@ -39,6 +40,7 @@ app.use("/api/payments", paymentRouter);
 app.use("/api/stores", storeRouter);
 app.use("/api/storeCategories", storeCategoryRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/addresses", addressRouter);
 
 app.use(middleware.unknownEndpoint);
 module.exports = app;

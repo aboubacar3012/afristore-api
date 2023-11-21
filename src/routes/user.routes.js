@@ -15,7 +15,7 @@ router.get("/:id", middleware.isAuthenticated, (request, response) => {
         .json({ success: false, message: "id is not valid" });
 
     User.findById(userId)
-      .populate("address")
+      .populate("addresses")
       .populate("store")
       .then((users) => {
         if (users) return response.status(200).json(users);

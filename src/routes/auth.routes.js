@@ -69,14 +69,14 @@ router.post("/signup", (request, response) => {
         });
         body.address = newAddress._id;
         await newAddress.save();
-        newUser.address = newAddress._id;
+        newUser.addresses = [newAddress._id];
 
         await newUser.save();
         // @ts-ignore
         await newUser.populate("address");
         const token = await jwt.sign(
           { id: newUser._id },
-          process.env.SECRET_KEY || "afristore_key",
+          process.env.SECRET_KEY || "afrograille_key",
           {
             expiresIn: process.env.JWT_EXPIRE,
           }
@@ -148,7 +148,7 @@ router.post("/signin", async (request, response) => {
     const { email, password } = request.body;
     // check if user exist
     User.findOne({ email: email })
-      .populate("address")
+      .populate("addresses")
       .then(async (user) => {
         // if exist return user
         if (user && bcrypt.compareSync(password, user.password)) {

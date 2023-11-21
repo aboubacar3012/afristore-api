@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
+  addressName: {
+    type: String,
+    required: false,
+  },
+  isDefault: {
+    type: Boolean,
+    default: false,
+  },
   street: {
     type: String,
     required: true,
