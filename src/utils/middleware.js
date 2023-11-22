@@ -41,7 +41,7 @@ const isAuthenticated = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  next();
+  // next();
 };
 
 const unknownEndpoint = (request, response) => {
