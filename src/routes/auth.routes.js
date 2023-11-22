@@ -73,7 +73,7 @@ router.post("/signup", (request, response) => {
 
         await newUser.save();
         // @ts-ignore
-        await newUser.populate("address");
+        await newUser.populate("addresses");
         const token = await jwt.sign(
           { id: newUser._id },
           process.env.SECRET_KEY || "afrograille_key",

@@ -8,15 +8,15 @@ const middleware = require("../utils/middleware");
 // validate cart
 router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) => {
   const { products, userId, amount, deliveryCharge, totalAmount } = req.body;
-  const user = await User.findById(userId).populate("address");
+  const user = await User.findById(userId).populate("addresses");
   if (!user) {
-    return res.status(404).json({ error: "User not found" });
+    return res.status(404).json({ error: "User not found", status: 404 });
   }
   let productTotalAmount = 0;
   for (let i = 0; i < products.length; i++) {
     const product = await Product.findById(products[i].id);
     if (!product) {
-      return res.status(404).json({ error: "Product not found" });
+      return res.status(404).json({ error: "Product not found", status: 404 });
     }
     productTotalAmount += product.price * products[i].quantity;
   }
@@ -27,6 +27,7 @@ router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) 
     return res.status(400).json({
       success: false,
       error: "Le total ne correspond pas a ceux qui est attendu",
+      status: 400,
     });
   }
 
@@ -36,7 +37,7 @@ router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) 
     orderDate: new Date().toISOString(),
     paymentStatus: "PENDING",
     orderStatus: "PENDING",
-    deliveryAddress: user?.address.id,
+    deliveryAddress: user?.addresses[0].id,
     totalAmount,
   });
 
@@ -46,6 +47,7 @@ router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) 
     success: true,
     message: "Panier validé avec succès",
     data: savedOrder,
+    status: 200,
   });
   // console.log(user);
   // next();
