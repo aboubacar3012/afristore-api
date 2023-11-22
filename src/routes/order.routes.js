@@ -31,6 +31,7 @@ router.get("/", middleware.isAuthenticated, (request, response) => {
     })
       .populate("products")
       .populate("user")
+      .populate("deliveryAddress")
       .then((orders) => {
         return response.status(200).json({ success: true, orders: orders });
       });
@@ -46,6 +47,7 @@ router.get("/admin", (request, response) => {
     Order.find()
       .populate("products")
       .populate("user")
+      .populate("deliveryAddress")
       .then((orders) => {
         return response.status(200).json({ success: true, orders: orders });
       });
