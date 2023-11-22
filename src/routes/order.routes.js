@@ -39,6 +39,21 @@ router.get("/", middleware.isAuthenticated, (request, response) => {
   }
 });
 
+// Get all Orders
+router.get("/admin", (request, response) => {
+  try {
+    // paymentStatus = PAID
+    Order.find()
+      .populate("products")
+      .populate("user")
+      .then((orders) => {
+        return response.status(200).json({ success: true, orders: orders });
+      });
+  } catch (e) {
+    return response.status(200).json({ success: false, error: e.message });
+  }
+});
+
 // Get Order by Id
 router.get("/:id", middleware.isAuthenticated, (request, response) => {
   try {
