@@ -4,6 +4,25 @@ const ShortUniqueId = require("short-unique-id");
 const { randomUUID } = new ShortUniqueId({ length: 10 });
 
 const orderSchema = new mongoose.Schema({
+  takingOrder: {
+    type: String,
+    enum: ["DELIVERY", "PICKUP"],
+    required: true,
+  },
+  timeToPickup: {
+    now: {
+      type: Boolean,
+      required: true,
+    },
+    day: {
+      type: String,
+      default: null,
+    },
+    period: {
+      type: String,
+      default: null,
+    },
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",

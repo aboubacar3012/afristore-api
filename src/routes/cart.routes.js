@@ -5,9 +5,19 @@ const Order = require("../model/order.model");
 const Product = require("../model/product.model");
 const middleware = require("../utils/middleware");
 
+const getOptionsPrice = (options) => {
+  let price = 0;
+  options.forEach((option) => {
+    option.values.forEach((value) => {
+      price += value.price;
+    })
+  })
+  return price;
+}
+
 // validate cart
 router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) => {
-  const { products, userId, amount, deliveryCharge, totalAmount } = req.body;
+  const { products, userId, amount, deliveryCharge, totalAmount, takingOrder, timeToPickup } = req.body;
   const user = await User.findById(userId).populate("addresses");
   if (!user) {
     return res.status(404).json({ error: "User not found", status: 404 });
@@ -18,7 +28,8 @@ router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) 
     if (!product) {
       return res.status(404).json({ error: "Product not found", status: 404 });
     }
-    productTotalAmount += product.price * products[i].quantity;
+    const price = product.price + getOptionsPrice(products[i].options);
+    productTotalAmount += price * products[i].quantity;
   }
   productTotalAmount = parseFloat(productTotalAmount.toFixed(2));
 
@@ -33,6 +44,8 @@ router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) 
 
   const newOrder = new Order({
     user: userId,
+    takingOrder,
+    timeToPickup,
     products: products,
     orderDate: new Date().toISOString(),
     paymentStatus: "PENDING",

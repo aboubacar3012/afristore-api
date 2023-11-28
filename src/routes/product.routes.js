@@ -29,6 +29,13 @@ router.get("/", (request, response) => {
     // populate category field
     Product.find()
       .populate("category")
+      .populate("options")
+      .populate({
+        path: "options",
+        populate: {
+          path: "values",
+        },
+      })
       .then((products) => {
         return response.status(200).json({
           success: true,

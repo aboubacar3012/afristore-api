@@ -18,6 +18,8 @@ const storeRouter = require("./src/routes/store.routes");
 const storeCategoryRouter = require("./src/routes/storeCategory.routes");
 const cartRouter = require("./src/routes/cart.routes");
 const addressRouter = require("./src/routes/address.routes");
+const optionValueRouter = require("./src/routes/optionValues.routes");
+const optionsRouter = require("./src/routes/options.routes");
 
 const app = express();
 
@@ -41,6 +43,8 @@ app.use("/api/stores", storeRouter);
 app.use("/api/storeCategories", storeCategoryRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/addresses", addressRouter);
+app.use("/api/optionsValues", optionValueRouter);
+app.use("/api/options", optionsRouter);
 
 app.use(middleware.unknownEndpoint);
 module.exports = app;

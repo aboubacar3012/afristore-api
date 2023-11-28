@@ -16,6 +16,8 @@ const mongoose = require("mongoose");
 
 */
 
+
+
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -25,6 +27,13 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  options: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "options",
+      required: false,
+    },
+  ],
   category: [
     {
       type: mongoose.Schema.Types.ObjectId,
