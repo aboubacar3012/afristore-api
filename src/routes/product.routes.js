@@ -73,7 +73,7 @@ router.put("/:id", middleware.isAuthenticated, (request, response) => {
     ).then((product) => {
       return response.status(200).json({
         success: true,
-        message: "Produit mis à jour avec succès",
+        message: "Produit mis à jour avec succès !",
         product: product,
       });
     });
