@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Payment = require("../model/payment.model");
 const middleware = require("../utils/middleware");
+const { getOptionsPrice } = require("../utils/getOptionsPrice");
 
 // @ts-ignore
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -9,10 +10,11 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const calculateCartAmount = (cart) => {
   let amount = 0;
   cart.products.map((product) => {
-    product.quantity && (amount += product.price * product.quantity);
+    // product.quantity && (amount += product.price * product.quantity);
+    const price = product.price + getOptionsPrice(product.options);
+    amount += price * product.quantity;
   });
-  // return amount + cart.deliveryCharge;
-  return 100;
+  return amount + cart.deliveryCharge;
 };
 
 // Handler pour la route /api/payment-intent

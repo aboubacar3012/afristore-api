@@ -4,16 +4,9 @@ const User = require("../model/user.model");
 const Order = require("../model/order.model");
 const Product = require("../model/product.model");
 const middleware = require("../utils/middleware");
+const { getOptionsPrice } = require("../utils/getOptionsPrice");
 
-const getOptionsPrice = (options) => {
-  let price = 0;
-  options.forEach((option) => {
-    option.values.forEach((value) => {
-      price += value.price;
-    })
-  })
-  return price;
-}
+
 
 // validate cart
 router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) => {
@@ -33,7 +26,7 @@ router.post("/validateCart", middleware.isAuthenticated, async (req, res, next) 
   }
   productTotalAmount = parseFloat(productTotalAmount.toFixed(2));
 
-  console.log({ productTotalAmount, deliveryCharge, totalAmount })
+  // console.log({ productTotalAmount, deliveryCharge, totalAmount })
   if (productTotalAmount + deliveryCharge !== totalAmount) {
     return res.status(400).json({
       success: false,
