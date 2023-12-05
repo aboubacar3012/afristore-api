@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Payment = require("../model/payment.model");
 const middleware = require("../utils/middleware");
-const { getOptionsPrice } = require("../utils/getOptionsPrice");
+const { getOptionsPrice } = require("../libs/getOptionsPrice");
 
 // @ts-ignore
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);

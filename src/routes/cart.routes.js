@@ -4,7 +4,7 @@ const User = require("../model/user.model");
 const Order = require("../model/order.model");
 const Product = require("../model/product.model");
 const middleware = require("../utils/middleware");
-const { getOptionsPrice } = require("../utils/getOptionsPrice");
+const { getOptionsPrice } = require("../libs/getOptionsPrice");
 
 
 

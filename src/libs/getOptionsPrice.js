@@ -1,4 +1,4 @@
-export const getOptionsPrice = (options) => {
+const getOptionsPrice = (options) => {
   let price = 0;
   options.forEach((option) => {
     option.values.forEach((value) => {
@@ -7,3 +7,5 @@ export const getOptionsPrice = (options) => {
   })
   return price;
 }
+
+module.exports = { getOptionsPrice };

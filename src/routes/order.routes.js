@@ -26,9 +26,7 @@ router.post("/", middleware.isAuthenticated, (request, response) => {
 router.get("/", middleware.isAuthenticated, (request, response) => {
   try {
     // paymentStatus = PAID
-    Order.find({
-      paymentStatus: "PAID",
-    })
+    Order.find()
       .populate("products")
       .populate("user")
       .populate("deliveryAddress")

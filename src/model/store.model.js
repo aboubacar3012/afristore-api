@@ -29,6 +29,12 @@ const storeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  password: {
+    type: String,
+    minlength: 8,
+    required:false,
+    default: null,
+  },
   website: {
     type: String,
     default: "",
@@ -78,35 +84,35 @@ const storeSchema = new mongoose.Schema({
     ref: "storeCategories",
     required: true,
   },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-    required: true,
-  },
+  // owner: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "users",
+  //   required: true,
+  // },
   storeReviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "reviews",
     },
   ],
-  storeProducts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "products",
-    },
-  ],
-  storeOrders: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "orders",
-    },
-  ],
-  storePayments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "payments",
-    },
-  ],
+  // storeProducts: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "products",
+  //   },
+  // ],
+  // storeOrders: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "orders",
+  //   },
+  // ],
+  // storePayments: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "payments",
+  //   },
+  // ],
   createdAt: {
     type: String,
     default: new Date().toISOString(),

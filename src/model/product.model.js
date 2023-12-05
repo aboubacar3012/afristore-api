@@ -23,10 +23,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  code: {
-    type: String,
-    required: false,
-  },
+  // code: {
+  //   type: String,
+  //   required: false,
+  // },
   options: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -41,10 +41,10 @@ const productSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  merchant: {
+  store: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-    required: false,
+    ref: "stores",
+    required: true,
   },
   description: {
     type: String,
@@ -54,26 +54,26 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  quantity: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  size: {
-    type: String,
-    enum: ["S", "M", "L", "XL", "XXL", "XXXL"],
-    required: false,
-  },
-  color: {
-    type: String,
-    enum: ["BLACK", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"],
-    required: false,
-  },
-  sex: {
-    type: String,
-    enum: ["MAN", "WOMAN", "UNISEX"],
-    required: false,
-  },
+  // quantity: {
+  //   type: Number,
+  //   required: false,
+  //   default: 0,
+  // },
+  // size: {
+  //   type: String,
+  //   enum: ["S", "M", "L", "XL", "XXL", "XXXL"],
+  //   required: false,
+  // },
+  // color: {
+  //   type: String,
+  //   enum: ["BLACK", "WHITE", "RED", "BLUE", "GREEN", "YELLOW"],
+  //   required: false,
+  // },
+  // sex: {
+  //   type: String,
+  //   enum: ["MAN", "WOMAN", "UNISEX"],
+  //   required: false,
+  // },
   discount: {
     type: Number,
     required: true,

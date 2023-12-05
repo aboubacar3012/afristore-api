@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  store: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "stores",
-      default: null,
-    },
-  ],
+  // store: [
+  //   {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: "stores",
+  //     default: null,
+  //   },
+  // ],
   firstName: {
     type: String,
     required: true,
