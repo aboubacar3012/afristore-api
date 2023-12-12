@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const storeCategorySchema = new mongoose.Schema({
+const storeSpecialitySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -19,7 +19,7 @@ const storeCategorySchema = new mongoose.Schema({
   },
 });
 
-storeCategorySchema.set("toJSON", {
+storeSpecialitySchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -27,4 +27,4 @@ storeCategorySchema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("storeCategories", storeCategorySchema);
+module.exports = mongoose.model("storeSpecialities", storeSpecialitySchema);

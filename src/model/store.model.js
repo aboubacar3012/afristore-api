@@ -1,39 +1,40 @@
 const mongoose = require("mongoose");
 
 const storeSchema = new mongoose.Schema({
+  storeOwner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: false,
+  },
   name: {
+    type: String,
+    required: true,
+  },
+  slug: {
     type: String,
     required: true,
   },
   address: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "addresses",
-    required: true,
+    required: false,
   },
   latitude: {
-    type: Number,
-    required: true,
+    type: String,
+    required: false,
   },
   longitude: {
-    type: Number,
-    required: true,
+    type: String,
+    required: false,
   },
   phoneNumbers: [
     {
-      type: String,
-      minlength: 10,
-      maxlength: 12,
+      type: String
     },
   ],
   email: {
     type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    minlength: 8,
-    required:false,
-    default: null,
+    required: false,
   },
   website: {
     type: String,
@@ -49,16 +50,21 @@ const storeSchema = new mongoose.Schema({
     {
       day: {
         type: String,
-        enum: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"],
-        required: true,
+        enum: ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+        required: false,
       },
       open: {
         type: String,
-        required: true,
+        required: false,
       },
       close: {
         type: String,
-        required: true,
+        required: false,
+      },
+      isActive: {
+        type: Boolean,
+        required: false,
+        default: false,
       },
     },
   ],
@@ -76,43 +82,31 @@ const storeSchema = new mongoose.Schema({
   },
   storeRating: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
-  storeCategory: {
+  storeCategories: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "storeCategories",
-    required: true,
-  },
-  // owner: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "users",
-  //   required: true,
-  // },
+    required: false,
+  }],
+  storeSpecialities: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "storeSpecialities",
+    required: false,
+  }],
   storeReviews: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "reviews",
+      required: false,
     },
   ],
-  // storeProducts: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "products",
-  //   },
-  // ],
-  // storeOrders: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "orders",
-  //   },
-  // ],
-  // storePayments: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "payments",
-  //   },
-  // ],
+  isActive: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   createdAt: {
     type: String,
     default: new Date().toISOString(),

@@ -3,7 +3,7 @@ const router = express.Router();
 const Store = require("../model/store.model");
 const middleware = require("../utils/middleware");
 // Create Store
-router.post("/", middleware.isAuthenticated, (request, response) => {
+router.post("/", middleware.isAuthenticated, (request, response, next) => {
   try {
     const body = request.body;
     const newStore = new Store({
@@ -36,7 +36,7 @@ router.get("/", (request, response) => {
 router.get("/:id", (request, response) => {
   try {
     const id = request.params.id;
-    Store.findById(id).then((store) => {
+    Store.findById(id).populate("storeCategories").populate("storeSpecialities").then((store) => {
       return response.status(200).json({ success: true, store: store });
     });
   } catch (e) {

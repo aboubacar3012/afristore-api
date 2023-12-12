@@ -16,10 +16,12 @@ const categoryRouter = require("./src/routes/category.routes");
 const paymentRouter = require("./src/routes/payment.routes");
 const storeRouter = require("./src/routes/store.routes");
 const storeCategoryRouter = require("./src/routes/storeCategory.routes");
+const storeSpecialityRouter = require("./src/routes/storeSpeciality.routes");
 const cartRouter = require("./src/routes/cart.routes");
 const addressRouter = require("./src/routes/address.routes");
 const optionValueRouter = require("./src/routes/optionValues.routes");
 const optionsRouter = require("./src/routes/options.routes");
+const uploadImageRouter = require("./src/routes/uploadImage.routes");
 
 const app = express();
 
@@ -41,10 +43,12 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/payments", paymentRouter);
 app.use("/api/stores", storeRouter);
 app.use("/api/storeCategories", storeCategoryRouter);
+app.use("/api/storeSpecialities", storeSpecialityRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/addresses", addressRouter);
 app.use("/api/optionsValues", optionValueRouter);
 app.use("/api/options", optionsRouter);
+app.use("/api/upload", uploadImageRouter);
 
 app.use(middleware.unknownEndpoint);
 module.exports = app;

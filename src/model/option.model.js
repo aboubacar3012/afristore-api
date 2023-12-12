@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const optionSchema = new mongoose.Schema({
+  store: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "stores",
+    required: true,
+  },
   name: {
     type: String,
     required: true,
