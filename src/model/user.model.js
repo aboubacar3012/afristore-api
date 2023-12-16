@@ -56,6 +56,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  lastOrders: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "orders",
+    required: true,
+  }],
   addresses: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "addresses",

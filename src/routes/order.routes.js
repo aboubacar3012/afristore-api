@@ -60,6 +60,7 @@ router.get("/:id", middleware.isAuthenticated, (request, response) => {
     const id = request.params.id;
     Order.findById(id)
       .populate("user")
+      .populate("deliveryAddress")
       .then((order) => {
         return response.status(200).json({ success: true, order: order });
       });
